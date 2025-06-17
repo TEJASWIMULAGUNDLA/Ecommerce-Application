@@ -7,5 +7,5 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping("/product-api")
 public class ProductController {
 
-    publci ResponseEntity<String> createProdoct()
+
 }
