@@ -1,32 +1,47 @@
 package com.eagle.productservice.service;
 
 import com.eagle.productservice.entity.Product;
+import com.eagle.productservice.repo.ProductRepository;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
-import java.util.List;
 
+import java.util.Optional;
+
+@Service
 public class ProductServiceImpl implements ProductService {
-    @Override
-    public Product createProduct(Product product) {
-        return null;
-    }
+
+    @Autowired
+    private ProductRepository productRepository;
 
     @Override
     public Product updateProduct(int id, Product updatedProduct) {
-        return null;
-    }
+        Optional<Product> optionalProduct = productRepository.findById(id);
+        if (optionalProduct.isPresent()) {
+            Product existingProduct = optionalProduct.get();
 
-    @Override
-    public Product getProductById(int id) {
-        return null;
-    }
+            existingProduct.setName(updatedProduct.getName());
+            existingProduct.setDescription(updatedProduct.getDescription());
+            existingProduct.setPrice(updatedProduct.getPrice());
+            existingProduct.setGstPercentage(updatedProduct.getGstPercentage());
+            existingProduct.setHsnCode(updatedProduct.getHsnCode());
+            existingProduct.setImageUrl(updatedProduct.getImageUrl());
+            existingProduct.setCategory(updatedProduct.getCategory());
 
-    @Override
-    public List<Product> getAllProducts() {
-        return List.of();
+            return productRepository.save(existingProduct);
+        } else {
+            throw new RuntimeException("Product not found with ID: " + id);
+        }
     }
 
     @Override
     public void deleteProduct(int id) {
-
+        if (productRepository.existsById(id)) {
+            productRepository.deleteById(id);
+        } else {
+            throw new RuntimeException("Product not found with ID: " + id);
+        }
     }
+
+
 }
