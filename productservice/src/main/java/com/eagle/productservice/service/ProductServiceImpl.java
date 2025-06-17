@@ -4,7 +4,9 @@ import com.eagle.productservice.entity.Product;
 
 import java.util.List;
 
+@Service
 public class ProductServiceImpl implements ProductService {
+
     @Override
     public Product createProduct(Product product) {
         return null;
