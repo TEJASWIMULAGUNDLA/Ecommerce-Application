@@ -1,0 +1,23 @@
+# Ignore IDE settings
+.metadata/
+*.iml
+*.ipr
+*.iws
+.idea/
+
+# Ignore Eclipse files
+*.classpath
+*.project
+.settings/
+
+# Ignore build outputs
+target/
+bin/
+CommonModules/
+
+# Logs
+*.log
+
+# OS-specific
+.DS_Store
+Thumbs.db
