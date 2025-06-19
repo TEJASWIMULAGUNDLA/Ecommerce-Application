@@ -1,28 +1,27 @@
 package com.eagle.productservice.entity;
 
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
-import org.springframework.data.annotation.Id;
+import lombok.*;
 
-@Entity
 @Table(name = "category")
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
+@RequiredArgsConstructor
+@Entity
 public class Category {
 
-    @Id
+
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Id
     private Long category_id;
 
-    @Column(name = "category_name")
+    @Column(name = "category_name" ,unique = true)
+    @NonNull
     private String categoryName;
 
     @ManyToOne
     @JoinColumn(name = "parent_category_id")
-    private Category parentCategory;
-
+    private Category parentCategoryName;
 
 }
