@@ -1,8 +1,0 @@
-D:\Workspaces\Ecom-jira\Ecommerce-Application\CommonModules\KafkaModule\src\main\java\com\kafka\dtos\AccountVerifiedEvent.java
-D:\Workspaces\Ecom-jira\Ecommerce-Application\CommonModules\KafkaModule\src\main\java\com\kafka\dtos\OfferEmailEvent.java
-D:\Workspaces\Ecom-jira\Ecommerce-Application\CommonModules\KafkaModule\src\main\java\com\kafka\dtos\OrderStatusEvent.java
-D:\Workspaces\Ecom-jira\Ecommerce-Application\CommonModules\KafkaModule\src\main\java\com\kafka\dtos\OtpVerificationEvent.java
-D:\Workspaces\Ecom-jira\Ecommerce-Application\CommonModules\KafkaModule\src\main\java\com\kafka\dtos\PaymentStatusEvent.java
-D:\Workspaces\Ecom-jira\Ecommerce-Application\CommonModules\KafkaModule\src\main\java\com\kafka\dtos\User.java
-D:\Workspaces\Ecom-jira\Ecommerce-Application\CommonModules\KafkaModule\src\main\java\com\kafka\KafkaConfig.java
-D:\Workspaces\Ecom-jira\Ecommerce-Application\CommonModules\KafkaModule\src\main\java\com\kafka\KafkaConstant.java

@@ -1,8 +1,0 @@
-com\kafka\dtos\OfferEmailEvent.class
-com\kafka\KafkaConfig.class
-com\kafka\dtos\OrderStatusEvent.class
-com\kafka\KafkaConstant.class
-com\kafka\dtos\User.class
-com\kafka\dtos\AccountVerifiedEvent.class
-com\kafka\dtos\OtpVerificationEvent.class
-com\kafka\dtos\PaymentStatusEvent.class
