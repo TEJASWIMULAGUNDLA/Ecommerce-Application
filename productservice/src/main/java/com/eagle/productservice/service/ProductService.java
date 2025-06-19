@@ -13,5 +13,6 @@ public interface ProductService {
     ProductResponseDTO getProductById(Long id);
     List<ProductResponseDTO> getAllProducts();
 
+
     public List<ProductResponseDTO> getProductsByCategoryTreeAndPrice(String categoryName, double minPrice, double maxPrice);
 }
