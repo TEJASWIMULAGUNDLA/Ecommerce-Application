@@ -1,6 +1,6 @@
 package com.eagle.productservice.service;
 
-import com.eagle.productservice.cloud.CloudinaryService;
+import com.eagle.productservice.awsservice.S3Service;
 import com.eagle.productservice.dto.ProductRequestDTO;
 import com.eagle.productservice.dto.ProductResponseDTO;
 import com.eagle.productservice.entity.Category;
@@ -20,8 +20,9 @@ import java.util.stream.Collectors;
 @Service
 public class ProductServiceImpl implements ProductService {
 
-    @Autowired
-    private CloudinaryService cloudinaryService;
+   @Autowired
+   private S3Service s3Service;
+
 
     @Autowired
     private ProductRepository productRepository;
@@ -35,7 +36,9 @@ public class ProductServiceImpl implements ProductService {
         // 1. Upload image to Cloudinary
         String imageUrl;
         try {
-            imageUrl = cloudinaryService.uploadFile(imageFile);
+            //imageUrl = cloudinaryService.uploadFile(imageFile);
+             imageUrl = s3Service.uploadFile(imageFile);
+
         } catch (IOException e) {
             throw new RuntimeException("Failed to upload image: " + e.getMessage(), e);
         }

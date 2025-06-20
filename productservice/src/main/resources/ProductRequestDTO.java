@@ -1,5 +1,6 @@
 package com.eagle.productservice.dto;
 
+
 import jakarta.persistence.Column;
 import lombok.Data;
 

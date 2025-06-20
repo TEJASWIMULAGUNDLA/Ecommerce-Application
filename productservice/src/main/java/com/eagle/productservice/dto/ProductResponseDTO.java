@@ -1,7 +1,6 @@
 package com.eagle.productservice.dto;
 
 import lombok.Data;
-
 import java.time.LocalDateTime;
 
 @Data
