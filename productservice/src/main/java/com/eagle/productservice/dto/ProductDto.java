@@ -1,55 +1,29 @@
-package com.eagle.productservice.entity;
+package com.eagle.productservice.dto;
 
-import jakarta.persistence.*;
 import java.time.LocalDateTime;
 
-@Entity
-@Table(name = "products")
-public class Product {
+public class ProductDto {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long prod_id;
-
+    private Long prodId;
     private String productName;
-
-    @Column(length = 1000)
     private String description;
-
     private double price;
-
-    @Column(name = "gst_percentage")
     private double gstPercentage;
-
-    @Column(name = "hsn_code")
     private String hsnCode;
-
-    @Column(name = "image_url")
     private String imageUrl;
-
-    @Column(name = "created_at")
     private LocalDateTime createdAt;
-
-    @ManyToOne
-    @JoinColumn(name = "category_id")
-    private Category category;
-
-    @Column(name = "is_active")
+    private Long categoryId; // Just using the ID for simplicity
     private Boolean isActive;
-
-    @Column(name = "stock_quantity")
     private Integer stockQuantity;
 
-
-    public Product() {
+    public ProductDto() {
     }
 
-
-    public Product(Long prod_id, String productName, String description, double price,
-                   double gstPercentage, String hsnCode, String imageUrl,
-                   LocalDateTime createdAt, Category category,
-                   Boolean isActive, Integer stockQuantity) {
-        this.prod_id = prod_id;
+    public ProductDto(Long prodId, String productName, String description, double price,
+                      double gstPercentage, String hsnCode, String imageUrl,
+                      LocalDateTime createdAt, Long categoryId,
+                      Boolean isActive, Integer stockQuantity) {
+        this.prodId = prodId;
         this.productName = productName;
         this.description = description;
         this.price = price;
@@ -57,18 +31,18 @@ public class Product {
         this.hsnCode = hsnCode;
         this.imageUrl = imageUrl;
         this.createdAt = createdAt;
-        this.category = category;
+        this.categoryId = categoryId;
         this.isActive = isActive;
         this.stockQuantity = stockQuantity;
     }
 
 
-    public Long getProd_id() {
-        return prod_id;
+    public Long getProdId() {
+        return prodId;
     }
 
-    public void setProd_id(Long prod_id) {
-        this.prod_id = prod_id;
+    public void setProdId(Long prodId) {
+        this.prodId = prodId;
     }
 
     public String getProductName() {
@@ -127,12 +101,12 @@ public class Product {
         this.createdAt = createdAt;
     }
 
-    public Category getCategory() {
-        return category;
+    public Long getCategoryId() {
+        return categoryId;
     }
 
-    public void setCategory(Category category) {
-        this.category = category;
+    public void setCategoryId(Long categoryId) {
+        this.categoryId = categoryId;
     }
 
     public Boolean getIsActive() {
@@ -149,27 +123,5 @@ public class Product {
 
     public void setStockQuantity(Integer stockQuantity) {
         this.stockQuantity = stockQuantity;
-    }
-
-    @PrePersist
-    public void prePersist() {
-        this.createdAt = LocalDateTime.now();
-    }
-
-    @Override
-    public String toString() {
-        return "Product{" +
-                "prod_id=" + prod_id +
-                ", productName='" + productName + '\'' +
-                ", description='" + description + '\'' +
-                ", price=" + price +
-                ", gstPercentage=" + gstPercentage +
-                ", hsnCode='" + hsnCode + '\'' +
-                ", imageUrl='" + imageUrl + '\'' +
-                ", createdAt=" + createdAt +
-                ", category=" + (category != null ? category.getCategory_id() : null) +
-                ", isActive=" + isActive +
-                ", stockQuantity=" + stockQuantity +
-                '}';
     }
 }

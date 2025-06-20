@@ -1,14 +1,17 @@
 package com.eagle.productservice.service;
 
-import com.eagle.productservice.entity.Product;
+import com.eagle.productservice.dto.ProductDto;
+import org.springframework.data.domain.Page;
 
-import java.util.List;
+import java.util.Optional;
 
 public interface ProductService {
 
 
-    Product updateProduct(int id, Product updatedProduct);
 
+    ProductDto updateProduct(Long id, ProductDto updatedProductDto);
 
-    void deleteProduct(int id);
+    Page<ProductDto> getAllProducts(int page, int size, String sortBy);
+
+    void deleteProduct(Long id);
 }

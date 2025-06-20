@@ -1,7 +1,6 @@
 package com.eagle.productservice.entity;
 
 import jakarta.persistence.*;
-import org.springframework.data.annotation.Id;
 
 @Entity
 @Table(name = "category")
@@ -9,30 +8,39 @@ public class Category {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int id;
+    private Long category_id;
 
-    @Column(name = "category_name")
+    @Column(name = "category_name", unique = true)
     private String categoryName;
 
     @ManyToOne
     @JoinColumn(name = "parent_category_id")
-    private Category parentCategory;
+    private Category parentCategoryName;
+
 
     public Category() {
     }
 
-    public Category(int id, String categoryName, Category parentCategory) {
-        this.id = id;
+
+    public Category(String categoryName) {
         this.categoryName = categoryName;
-        this.parentCategory = parentCategory;
     }
 
-    public int getId() {
-        return id;
+
+    public Category(Long category_id, String categoryName, Category parentCategoryName) {
+        this.category_id = category_id;
+        this.categoryName = categoryName;
+        this.parentCategoryName = parentCategoryName;
     }
 
-    public void setId(int id) {
-        this.id = id;
+
+
+    public Long getCategory_id() {
+        return category_id;
+    }
+
+    public void setCategory_id(Long category_id) {
+        this.category_id = category_id;
     }
 
     public String getCategoryName() {
@@ -43,20 +51,20 @@ public class Category {
         this.categoryName = categoryName;
     }
 
-    public Category getParentCategory() {
-        return parentCategory;
+    public Category getParentCategoryName() {
+        return parentCategoryName;
     }
 
-    public void setParentCategory(Category parentCategory) {
-        this.parentCategory = parentCategory;
+    public void setParentCategoryName(Category parentCategoryName) {
+        this.parentCategoryName = parentCategoryName;
     }
 
     @Override
     public String toString() {
         return "Category{" +
-                "id=" + id +
+                "category_id=" + category_id +
                 ", categoryName='" + categoryName + '\'' +
-                ", parentCategory=" + parentCategory +
+                ", parentCategoryName=" + (parentCategoryName != null ? parentCategoryName.getCategory_id() : null) +
                 '}';
     }
 }
