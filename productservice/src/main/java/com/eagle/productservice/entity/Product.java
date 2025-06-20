@@ -1,10 +1,17 @@
 package com.eagle.productservice.entity;
 
 import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+
 import java.time.LocalDateTime;
 
 @Entity
 @Table(name = "products")
+@Data
+@AllArgsConstructor
+@NoArgsConstructor
 public class Product {
 
     @Id
@@ -41,135 +48,4 @@ public class Product {
     private Integer stockQuantity;
 
 
-    public Product() {
-    }
-
-
-    public Product(Long prod_id, String productName, String description, double price,
-                   double gstPercentage, String hsnCode, String imageUrl,
-                   LocalDateTime createdAt, Category category,
-                   Boolean isActive, Integer stockQuantity) {
-        this.prod_id = prod_id;
-        this.productName = productName;
-        this.description = description;
-        this.price = price;
-        this.gstPercentage = gstPercentage;
-        this.hsnCode = hsnCode;
-        this.imageUrl = imageUrl;
-        this.createdAt = createdAt;
-        this.category = category;
-        this.isActive = isActive;
-        this.stockQuantity = stockQuantity;
-    }
-
-
-    public Long getProd_id() {
-        return prod_id;
-    }
-
-    public void setProd_id(Long prod_id) {
-        this.prod_id = prod_id;
-    }
-
-    public String getProductName() {
-        return productName;
-    }
-
-    public void setProductName(String productName) {
-        this.productName = productName;
-    }
-
-    public String getDescription() {
-        return description;
-    }
-
-    public void setDescription(String description) {
-        this.description = description;
-    }
-
-    public double getPrice() {
-        return price;
-    }
-
-    public void setPrice(double price) {
-        this.price = price;
-    }
-
-    public double getGstPercentage() {
-        return gstPercentage;
-    }
-
-    public void setGstPercentage(double gstPercentage) {
-        this.gstPercentage = gstPercentage;
-    }
-
-    public String getHsnCode() {
-        return hsnCode;
-    }
-
-    public void setHsnCode(String hsnCode) {
-        this.hsnCode = hsnCode;
-    }
-
-    public String getImageUrl() {
-        return imageUrl;
-    }
-
-    public void setImageUrl(String imageUrl) {
-        this.imageUrl = imageUrl;
-    }
-
-    public LocalDateTime getCreatedAt() {
-        return createdAt;
-    }
-
-    public void setCreatedAt(LocalDateTime createdAt) {
-        this.createdAt = createdAt;
-    }
-
-    public Category getCategory() {
-        return category;
-    }
-
-    public void setCategory(Category category) {
-        this.category = category;
-    }
-
-    public Boolean getIsActive() {
-        return isActive;
-    }
-
-    public void setIsActive(Boolean isActive) {
-        this.isActive = isActive;
-    }
-
-    public Integer getStockQuantity() {
-        return stockQuantity;
-    }
-
-    public void setStockQuantity(Integer stockQuantity) {
-        this.stockQuantity = stockQuantity;
-    }
-
-    @PrePersist
-    public void prePersist() {
-        this.createdAt = LocalDateTime.now();
-    }
-
-    @Override
-    public String toString() {
-        return "Product{" +
-                "prod_id=" + prod_id +
-                ", productName='" + productName + '\'' +
-                ", description='" + description + '\'' +
-                ", price=" + price +
-                ", gstPercentage=" + gstPercentage +
-                ", hsnCode='" + hsnCode + '\'' +
-                ", imageUrl='" + imageUrl + '\'' +
-                ", createdAt=" + createdAt +
-                ", category=" + (category != null ? category.getCategory_id() : null) +
-                ", isActive=" + isActive +
-                ", stockQuantity=" + stockQuantity +
-                '}';
-    }
 }
