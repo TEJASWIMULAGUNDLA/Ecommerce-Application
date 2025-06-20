@@ -1,19 +1,24 @@
 package com.eagle.productservice.entity;
 
 import jakarta.persistence.*;
-import org.springframework.data.annotation.Id;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import java.time.LocalDateTime;
 
 @Entity
 @Table(name = "products")
+@Data
+@AllArgsConstructor
+@NoArgsConstructor
 public class Product {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int id;
+    private Long prod_id;
 
-    private String name;
+    private String productName;
 
     @Column(length = 1000)
     private String description;
@@ -41,33 +46,4 @@ public class Product {
         this.createdAt = LocalDateTime.now();
     }
 
-    public Product() {
-    }
-
-    public Product(int id, String name, String description, double price, double gstPercentage, String hsnCode, String imageUrl, LocalDateTime createdAt, Category category) {
-        this.id = id;
-        this.name = name;
-        this.description = description;
-        this.price = price;
-        this.gstPercentage = gstPercentage;
-        this.hsnCode = hsnCode;
-        this.imageUrl = imageUrl;
-        this.createdAt = createdAt;
-        this.category = category;
-    }
-
-    @Override
-    public String toString() {
-        return "Product{" +
-                "id=" + id +
-                ", name='" + name + '\'' +
-                ", description='" + description + '\'' +
-                ", price=" + price +
-                ", gstPercentage=" + gstPercentage +
-                ", hsnCode='" + hsnCode + '\'' +
-                ", imageUrl='" + imageUrl + '\'' +
-                ", createdAt=" + createdAt +
-                ", category=" + category +
-                '}';
-    }
 }
