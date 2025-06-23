@@ -23,4 +23,6 @@ public class ProductRequestDTO {
     private String categoryName;
 
     private String parentCategoryName;
+
+    private Integer stockQuantity;
 }
