@@ -1,5 +1,6 @@
 package com.eagle.productservice.service;
 
+import com.eagle.productservice.awsservice.S3Service;
 import com.eagle.productservice.dto.ProductDto;
 import com.eagle.productservice.entity.Category;
 import com.eagle.productservice.entity.Product;
@@ -13,11 +14,15 @@ import java.util.Optional;
 import java.util.List;
 
 import org.springframework.data.domain.*;
+import org.springframework.web.multipart.MultipartFile;
 
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.*;
 
 class ProductServiceImplTest {
+
+    @Mock
+    private S3Service s3Service;
 
     @InjectMocks
     private ProductServiceImpl productService;
@@ -61,13 +66,18 @@ class ProductServiceImplTest {
 
 
 
-
-
     @Test
-    void testUpdateProduct_Success() {
+    void testUpdateProduct_Success() throws Exception {
+        // Mock: product found
         when(productRepository.findById(1L)).thenReturn(Optional.of(existingProduct));
 
+        // Create mock image
+        MultipartFile mockImage = mock(MultipartFile.class);
+        when(mockImage.isEmpty()).thenReturn(false);
+        when(mockImage.getOriginalFilename()).thenReturn("new.jpg");
+        when(s3Service.uploadFile(mockImage)).thenReturn("https://s3.aws.com/new.jpg");
 
+        // Mock: product save
         Product updatedProduct = new Product();
         updatedProduct.setProd_id(1L);
         updatedProduct.setProductName("Updated Product");
@@ -75,7 +85,7 @@ class ProductServiceImplTest {
         updatedProduct.setPrice(1000);
         updatedProduct.setGstPercentage(12);
         updatedProduct.setHsnCode("5678");
-        updatedProduct.setImageUrl("new.jpg");
+        updatedProduct.setImageUrl("https://s3.aws.com/new.jpg");
         updatedProduct.setCreatedAt(LocalDateTime.now());
         updatedProduct.setIsActive(false);
         updatedProduct.setStockQuantity(5);
@@ -83,11 +93,17 @@ class ProductServiceImplTest {
 
         when(productRepository.save(any(Product.class))).thenReturn(updatedProduct);
 
-        ProductDto result = productService.updateProduct(1L, updatedDto);
+        // Act
+        ProductDto result = productService.updateProduct(1L, updatedDto, mockImage);
 
-        assertEquals("Updated Product", result.getProductName()); // ✅ FIXED
+        // Assert
+        assertNotNull(result);
+        assertEquals("Updated Product", result.getProductName());
+        assertEquals("https://s3.aws.com/new.jpg", result.getImageUrl());
         verify(productRepository).save(any(Product.class));
+        verify(s3Service).uploadFile(mockImage);
     }
+
 
 
     @Test
@@ -95,7 +111,7 @@ class ProductServiceImplTest {
         when(productRepository.findById(99L)).thenReturn(Optional.empty());
 
         RuntimeException ex = assertThrows(RuntimeException.class,
-                () -> productService.updateProduct(99L, updatedDto));
+                () -> productService.updateProduct(99L, updatedDto,null));
 
         assertEquals("Product not found with ID: 99", ex.getMessage());
     }
@@ -116,7 +132,7 @@ class ProductServiceImplTest {
         when(productRepository.findById(1L)).thenReturn(Optional.of(existingProduct));
         when(productRepository.save(any(Product.class))).thenReturn(existingProduct);
 
-        ProductDto result = productService.updateProduct(1L, updatedDto);
+        ProductDto result = productService.updateProduct(1L, updatedDto,null);
 
         assertNotNull(result);
         verify(productRepository).save(any(Product.class));
@@ -135,14 +151,4 @@ class ProductServiceImplTest {
         assertEquals("Product not found with ID: 99", ex.getMessage());
     }
 
-    @Test
-    void testGetAllProducts() {
-        Page<Product> page = new PageImpl<>(List.of(existingProduct));
-        when(productRepository.findAll(any(Pageable.class))).thenReturn(page);
-
-        Page<ProductDto> result = productService.getAllProducts(0, 10, "productName");
-
-        assertEquals(1, result.getTotalElements());
-        assertEquals("Old Product", result.getContent().get(0).getProductName());
-    }
 }

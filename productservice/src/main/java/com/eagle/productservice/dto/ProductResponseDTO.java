@@ -14,5 +14,7 @@ public class ProductResponseDTO {
     private String categoryName;
     private String parentCategoryName;
     private LocalDateTime createdAt;
+    private Integer stockQuantity;
+    private Boolean isActive;
 }
 

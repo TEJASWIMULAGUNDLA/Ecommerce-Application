@@ -4,6 +4,8 @@ import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.hibernate.annotations.SQLDelete;
+import org.hibernate.annotations.Where;
 
 import java.time.LocalDateTime;
 
@@ -12,6 +14,8 @@ import java.time.LocalDateTime;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
+@SQLDelete(sql = "UPDATE products SET is_active = false WHERE id = ?")
+@Where(clause = "is_active = true")
 public class Product {
 
     @Id
@@ -42,7 +46,7 @@ public class Product {
     private Category category;
 
     @Column(name = "is_active")
-    private Boolean isActive;
+    private Boolean isActive =true;
 
     @Column(name = "stock_quantity")
     private Integer stockQuantity;
