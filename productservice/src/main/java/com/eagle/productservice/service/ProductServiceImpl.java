@@ -35,7 +35,7 @@ public class ProductServiceImpl implements ProductService {
 
     @Override
     public ProductResponseDTO createProduct(ProductRequestDTO productDTO, MultipartFile imageFile) {
-        // 1. Upload image to Cloudinary
+        // 1. Upload image to AWS cloud (S3)
         String imageUrl;
         try {
             log.info("Uploading image to S3 with fileName: {}", imageFile.getOriginalFilename());
