@@ -62,6 +62,7 @@ public class ProductServiceImpl implements ProductService {
         }
 
         // 3. Get or create child category (the one assigned to the product)
+        log.info("Fetching or creating category with name: {}", productDTO.getCategoryName());
         Category category = categoryRepository.findByCategoryName(productDTO.getCategoryName())
                 .orElseGet(() -> {
                     Category newCategory = new Category(productDTO.getCategoryName());
