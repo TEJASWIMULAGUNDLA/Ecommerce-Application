@@ -8,6 +8,7 @@ import com.eagle.productservice.dto.ProductResponseDTO;
 import com.eagle.productservice.entity.Product;
 import com.eagle.productservice.repo.ProductRepository;
 import lombok.SneakyThrows;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import com.eagle.productservice.repo.CategoryRepository;
@@ -21,6 +22,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Service
+@Slf4j
 public class ProductServiceImpl implements ProductService {
 
     @Autowired
@@ -36,22 +38,26 @@ public class ProductServiceImpl implements ProductService {
         // 1. Upload image to Cloudinary
         String imageUrl;
         try {
-            //imageUrl = cloudinaryService.uploadFile(imageFile);
+            log.info("Uploading image to S3 with fileName: {}", imageFile.getOriginalFilename());
             imageUrl = s3Service.uploadFile(imageFile);
 
         } catch (IOException e) {
+            log.error("Failed to upload image: {}", e.getMessage());
             throw new RuntimeException("Failed to upload image: " + e.getMessage(), e);
         }
 
         // 2. Get or create parent category (if provided)
         Category parentCategory;
         if (productDTO.getParentCategoryName() != null && !productDTO.getParentCategoryName().isBlank()) {
+            log.info("Fetching or creating parent category with name: {}", productDTO.getParentCategoryName());
             parentCategory = categoryRepository.findByCategoryName(productDTO.getParentCategoryName())
                     .orElseGet(() -> {
                         Category newParent = new Category(productDTO.getParentCategoryName());
                         return categoryRepository.save(newParent);
                     });
+            log.info("Parent category found or created: {}", parentCategory.getCategoryName());
         } else {
+            log.info("No parent category provided, setting to null");
             parentCategory = null;
         }
 
@@ -70,6 +76,7 @@ public class ProductServiceImpl implements ProductService {
         product.setPrice(productDTO.getPrice());
         product.setGstPercentage(productDTO.getGstPercentage());
         product.setHsnCode(productDTO.getHsnCode());
+        product.setStockQuantity(productDTO.getStockQuantity());
         product.setImageUrl(imageUrl);
         product.setCategory(category);
         product.setCreatedAt(LocalDateTime.now());
@@ -80,6 +87,7 @@ public class ProductServiceImpl implements ProductService {
         Category category1 = prod.getCategory();
         responseDTO.setCategoryName(category1.getCategoryName());
         responseDTO.setParentCategoryName(category1.getParentCategoryName().getCategoryName());
+        log.info("Product created successfully with ID: {}", prod.getProd_id());
         return responseDTO;
     }
 

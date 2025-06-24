@@ -2,13 +2,10 @@ package com.eagle.productservice.service;
 
 import com.eagle.productservice.dto.ProductRequestDTO;
 import com.eagle.productservice.dto.ProductResponseDTO;
-import com.eagle.productservice.entity.Product;
 import org.springframework.web.multipart.MultipartFile;
 import com.eagle.productservice.dto.ProductDto;
-import org.springframework.data.domain.Page;
 
 import java.util.List;
-import java.util.Optional;
 
 public interface ProductService {
 
