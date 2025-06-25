@@ -6,7 +6,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import com.ashokit.dtos.ProductDto;
 
-@FeignClient(name = "ProductService")
+@FeignClient(name = "ProductService",url = "http://localhost:8082")
 public interface ProductClient {
        
 	@GetMapping("/products/{id}")

@@ -7,6 +7,8 @@ import java.time.LocalDateTime;
 import org.antlr.v4.runtime.misc.NotNull;
 
 import jakarta.persistence.Entity;
+import jakarta.persistence.EnumType;
+import jakarta.persistence.Enumerated;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
@@ -26,31 +28,31 @@ public class SaleReport {
 	    @GeneratedValue(strategy = GenerationType.IDENTITY)
 	    private Long reportId;
 
-	    @NotNull
+	  
 	    private String reportName;
 
-	    @NotNull
+	
 	    private LocalDate startDate;
 
-	    @NotNull
+	   
 	    private LocalDate endDate;
 
-	    @NotNull
+	    
 	    private LocalDateTime generatedAt;
 
-	    @NotNull
+	    
 	    private Integer totalOrders;
 
-	    @NotNull
+	  
 	    private BigDecimal totalSales;
 
-	    @NotNull
+	   
 	    private Integer totalProductsSold;
 
-	    @NotNull
+	    
 	    private BigDecimal averageOrderValue;
 
-	    @NotNull
+	  
 	    private String status;
 	    
 	    private Long topProductId;
@@ -60,4 +62,6 @@ public class SaleReport {
 	    private Integer topProductUnitsSold;
 
 	    private BigDecimal topProductRevenue;
+	   
+	    private String paymentMode;
 }

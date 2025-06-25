@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import com.ashokit.dtos.OrderDto;
 
-@FeignClient(name ="Order-Service")
+@FeignClient(name ="Order-Service", url = "http://localhost:8081")
 public interface OrderClient {
         
 	  @GetMapping("/orders")

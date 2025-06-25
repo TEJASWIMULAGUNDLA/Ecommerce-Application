@@ -21,7 +21,8 @@ public class SaleReportController {
 	
 	@Autowired
 	SaleReportService saleReportService;
-	@GetMapping("/report/{startDate}/{endDate}/{status}")
+	
+	@GetMapping("/report/{startDate}/{endDate}/{status}/{paymentMode}")
 	public ResponseEntity<SaleReportDto> generateReport(
 	        @PathVariable @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate startDate,
 	        @PathVariable @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate endDate,

@@ -22,6 +22,8 @@ public class SaleReportDto {
 	    private BigDecimal averageOrderValue;
 	    private String status;
 	    
+	    private String paymentMode;
+	    
 	    
 	    private Long topProductId;
 

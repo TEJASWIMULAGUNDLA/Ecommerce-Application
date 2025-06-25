@@ -146,8 +146,10 @@ public class SaleReportServiceImpl implements SaleReportService {
 	                        (paymentFilter != null ? " / " + paymentFilter : "") + ")";
 
 	    report.setReportName(humanLabel);
+	    
 	    report.setStartDate(startDate);
 	    report.setEndDate(endDate);
+	    report.setPaymentMode(paymentMode);
 	    report.setGeneratedAt(LocalDateTime.now());
 	    report.setTotalOrders(totalOrders);
 	    report.setTotalSales(totalSales);
