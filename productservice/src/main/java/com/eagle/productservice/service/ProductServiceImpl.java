@@ -35,7 +35,7 @@ public class ProductServiceImpl implements ProductService {
 
     @Override
     public ProductResponseDTO createProduct(ProductRequestDTO productDTO, MultipartFile imageFile) {
-        // 1. Upload image to Cloudinary
+        // 1. Upload image to AWS cloud (S3)
         String imageUrl;
         try {
             log.info("Uploading image to S3 with fileName: {}", imageFile.getOriginalFilename());
@@ -62,6 +62,7 @@ public class ProductServiceImpl implements ProductService {
         }
 
         // 3. Get or create child category (the one assigned to the product)
+        log.info("Fetching or creating category with name: {}", productDTO.getCategoryName());
         Category category = categoryRepository.findByCategoryName(productDTO.getCategoryName())
                 .orElseGet(() -> {
                     Category newCategory = new Category(productDTO.getCategoryName());
